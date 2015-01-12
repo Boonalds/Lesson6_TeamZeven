@@ -1,9 +1,8 @@
-extract.ndvi <- function(ndvilayer, municipalities){
-  meanndvi <- extract(ndvilayer,municipalities, method='simple', fun=mean, na.rm=T, sp=T, df=T)
-  p <- meanndvi@data
-  q <- p[,15:26]
-  meanndvi$avg <- rowMeans(p[,15:26])  
-  return(meanndvi)
-   }
+extract.ndvi <- function(ndvilayer, boundarylayer){
+  meanndviSpat <- extract(ndvilayer, boundarylayer, method='simple', fun=mean, na.rm=T, sp=T, df=T)
+  meanndviData <- meanndviSpat@data
+  meanndviSpat$YearAVG <- rowMeans(meanndviData[,15:26])  
+  return(meanndviSpat)
+  }
 
-e <- extract.ndvi(ndvibrick, nlCitySinu)
+ndviMunicipality <- extract.ndvi(ndvibrick, nlCitySinu)
