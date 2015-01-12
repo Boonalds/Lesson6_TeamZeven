@@ -28,13 +28,27 @@ nlCitySinu <- spTransform(nlCity, CRS(brickproj))
 # Calculate mean ndvi values
 ndviMunicipality <- extract.ndvi(ndvibrick, nlCitySinu)
 
+# The greenest city
+# January
+maxndviJan <- which.max(ndviMunicipality$January)
+maxcityJan <- ndviMunicipality$NAME_2[maxndviJan]
+paste('The greenest city in January is', maxcityJan)
+
+# August
+maxndviAug <- which.max(ndviMunicipality$August)
+maxcityAug <- ndviMunicipality$NAME_2[maxndviAug]
+paste('The greenest city in August is', maxcityAug)
+
+# On average over the year
+maxndviYear <- which.max(ndviMunicipality$YearAVG)
+maxcityYear <- ndviMunicipality$NAME_2[maxndviYear]
+paste('The greenest city in on average over the year is', maxcityYear)
+
 # Plot map
 colorPal <- rev(colorRampPalette(brewer.pal(9, "Spectral"))(20)) # Create color palette
 spplot(ndviMunicipality['YearAVG'], main = 'NDVI per municipality in the Netherlands', 
        sub = 'ModisData of February 2000', xlab = 'Latitude', ylab ='Longitude',
        sp.layout=list(list("SpatialPolygonsRescale", layout.north.arrow(),
                            offset = c(250000,5890000), 
-                           scale = 50000, fill=c("transparent","black"))
-                      ),
+                           scale = 50000, fill=c("transparent","black"))),
        col.regions = colorPal, scales=list(draw=T), colorkey=T)
-
