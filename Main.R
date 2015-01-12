@@ -29,12 +29,12 @@ nlCitySinu <- spTransform(nlCity, CRS(brickproj))
 ndviMunicipality <- extract.ndvi(ndvibrick, nlCitySinu)
 
 # Plot map
-colorPal <- colorRampPalette(brewer.pal(9, "YlGn"))(18)
+colorPal <- rev(colorRampPalette(brewer.pal(9, "Spectral"))(20)) # Create color palette
 spplot(ndviMunicipality['YearAVG'], main = 'NDVI per municipality in the Netherlands', 
-       sub = 'ModisData February 2000', xlab = 'Latitude', ylab ='Longitude',
-       sp.layout=list(list("SpatialPolygonsRescale", layout.north.arrow(), offset = c(250000,5890000), 
-                           scale = 50000, fill=c("transparent","black"))),
+       sub = 'ModisData of February 2000', xlab = 'Latitude', ylab ='Longitude',
+       sp.layout=list(list("SpatialPolygonsRescale", layout.north.arrow(),
+                           offset = c(250000,5890000), 
+                           scale = 50000, fill=c("transparent","black"))
+                      ),
        col.regions = colorPal, scales=list(draw=T), colorkey=T)
-?spplot
-?plot
-?ggplot
+
