@@ -26,7 +26,8 @@ brickproj<-projection(ndvibrick)
 nlCitySinu <- spTransform(nlCity, CRS(brickproj))
 
 # Calculate mean ndvi values
-ndviMunicipality <- extract.ndvi(ndvibrick, nlCitySinu)
+ndviRescale <- calc(ndvibrick, fun=function(x)x/10000)
+ndviMunicipality <- extract.ndvi(ndviRescale, nlCitySinu)
 
 ## The greenest city
 # January
